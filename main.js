@@ -39,7 +39,27 @@ function keyboard(keyCode) {
 }
 
 function animate() {
+	if (up) {
+		rocket.velocity.y += acceleration * (Math.sin(rocket.rotation-(Math.PI/2)));
+		rocket.velocity.x += acceleration * (Math.cos(rocket.rotation-(Math.PI/2)));
+	}
+	if (down) {
+		rocket.velocity.y += acceleration * (Math.sin(rocket.rotation-(Math.PI/2)));
+		rocket.velocity.x += acceleration * (Math.cos(rocket.rotation-(Math.PI/2)));
+	}
+	if (left) {
+		rocket.rotation -= 0.05;
+	}
+	if (right) {
+		rocket.rotation += 0.05;
+	}
+
+    // update position with velocity
+	rocket.position.y += rocket.velocity.y;
+	rocket.position.x += rocket.velocity.x;
+
 	renderer.render(stage);
+	requestAnimationFrame(animate);
 }
 
 window.onload = function() {
@@ -66,6 +86,11 @@ window.onload = function() {
 	characterGenerator.boundsPadding = 0;
 	var texture = characterGenerator.generateTexture();
 	rocket = new PIXI.Sprite(texture);
+
+	rocket.velocity = new PIXI.Point(0, 0); // actually a vector
+
+    // acceleration coefficient - controls rate of acceleration
+	acceleration = 1/5;
 
 	stage.addChild(rocket);
 
