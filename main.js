@@ -65,6 +65,10 @@ function gravity(point, mass) {
 
 }
 
+function physics(){
+	requestAnimationFrame(animate);
+}
+
 function animate() {
 	if (up) {
 		applyAcceleration(acceleration);
@@ -86,7 +90,7 @@ function animate() {
 	rocket.position.x += rocket.velocity.x;
 
 	renderer.render(stage);
-	requestAnimationFrame(animate);
+	physics();
 }
 
 window.onload = function() {
@@ -177,6 +181,6 @@ window.onload = function() {
 		down = false;
 	}
 
-	requestAnimationFrame(animate);
+	physics();
 
 }
