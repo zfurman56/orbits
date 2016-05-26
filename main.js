@@ -43,6 +43,24 @@ function applyAcceleration(accel) {
 	rocket.velocity.x += accel * (Math.cos(rocket.rotation-(Math.PI/2)));
 }
 
+// calculate gravitational force and apply it to velocity
+// parameters point and mass refer to gravity-causing object
+function gravity(point, mass) {
+
+	var dx = (point.x - rocket.x);
+	var dy = (point.y - rocket.y);
+
+	var distance = Math.sqrt((Math.pow(dx, 2) + Math.pow(dy, 2)));
+	var angle = Math.atan((dy/dx));
+
+    // gravitational acceleration equation g = Gm/r^2
+	var accel = (G * mass) / Math.pow(distance, 2);
+
+	rocket.velocity.y += accel * (Math.sin(angle));
+	rocket.velocity.x += accel * (Math.cos(angle));
+
+}
+
 function animate() {
 	if (up) {
 		applyAcceleration(acceleration);
@@ -56,6 +74,8 @@ function animate() {
 	if (right) {
 		rocket.rotation += 0.05;
 	}
+
+	gravity(gravityNode, 10000000000000)
 
     // update position with velocity
 	rocket.position.y += rocket.velocity.y;
@@ -101,10 +121,20 @@ window.onload = function() {
 	rocket.scale.x = 0.5;
 	rocket.scale.y = 0.5;
 
+	stage.addChild(rocket);
+
     // acceleration coefficient - controls rate of acceleration
 	acceleration = 1/5;
 
-	stage.addChild(rocket);
+	// the gravitational constant
+	G = 6.67e-11;
+
+	var graphics = new PIXI.Graphics();
+	graphics.beginFill(0xffffff);
+	graphics.lineStyle(10, 0xffffff, 0);
+	graphics.drawCircle(200, 200, 5);
+	stage.addChild(graphics);
+	gravityNode = new PIXI.Point(200, 200);
 
 	// listen for key presses
 	var leftKey = keyboard(37),
