@@ -1,3 +1,7 @@
+function animate() {
+	renderer.render(stage);
+}
+
 window.onload = function() {
 
 	// Setup the canvas
@@ -22,7 +26,4 @@ window.onload = function() {
 
 	requestAnimationFrame(animate);
 
-	function animate() {
-		renderer.render(stage);
-	}
 }
