@@ -4,7 +4,7 @@ function animate() {
 
 window.onload = function() {
 
-	// Setup the canvas
+	// setup the canvas
 	renderer = new PIXI.CanvasRenderer(800, 600);
 	document.getElementById('container').appendChild(renderer.view);
 	stage = new PIXI.Stage();
@@ -12,17 +12,22 @@ window.onload = function() {
 	var graphics = new PIXI.Graphics();
 
 	// set a fill and line style
-	graphics.beginFill(0xffffff);
-	graphics.lineStyle(10, 0xffffff, 0);
+	characterGenerator.beginFill(0xffffff);
+	characterGenerator.lineStyle(10, 0xffffff, 0);
 	
 	// draw a shape
-	graphics.moveTo(100, 100);
-	graphics.lineTo(130, 180);
-	graphics.lineTo(100, 170);
-	graphics.lineTo(70, 180);
-	graphics.endFill();
+	characterGenerator.moveTo(100, 100);
+	characterGenerator.lineTo(130, 180);
+	characterGenerator.lineTo(100, 170);
+	characterGenerator.lineTo(70, 180);
+	characterGenerator.endFill();
 
-	stage.addChild(graphics);
+    // turn character graphic into sprite
+	characterGenerator.boundsPadding = 0;
+	var texture = characterGenerator.generateTexture();
+	rocket = new PIXI.Sprite(texture);
+
+	stage.addChild(rocket);
 
 	requestAnimationFrame(animate);
 
