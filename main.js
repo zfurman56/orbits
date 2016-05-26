@@ -1,3 +1,43 @@
+// handle key presses
+function keyboard(keyCode) {
+
+	var key = {};
+	key.code = keyCode;
+	key.isDown = false;
+	key.isUp = true;
+	key.press = undefined;
+	key.release = undefined;
+
+	// key press
+	key.down = function(event) {
+		if (event.keyCode === key.code) {
+			if (key.isUp && key.press) key.press();
+			key.isDown = true;
+			key.isUp = false;
+		}
+		event.preventDefault();
+	};
+
+	// key release
+	key.up = function(event) {
+		if (event.keyCode === key.code) {
+			if (key.isDown && key.release) key.release();
+			key.isDown = false;
+			key.isUp = true;
+		}
+		event.preventDefault();
+	};
+
+	window.addEventListener(
+		"keydown", key.down.bind(key), false
+	);
+	window.addEventListener(
+		"keyup", key.up.bind(key), false
+	);
+	return key;
+
+}
+
 function animate() {
 	renderer.render(stage);
 }
@@ -22,12 +62,49 @@ window.onload = function() {
 	characterGenerator.lineTo(70, 180);
 	characterGenerator.endFill();
 
-    // turn character graphic into sprite
+	// turn character graphic into sprite
 	characterGenerator.boundsPadding = 0;
 	var texture = characterGenerator.generateTexture();
 	rocket = new PIXI.Sprite(texture);
 
 	stage.addChild(rocket);
+
+	// listen for key presses
+	var leftKey = keyboard(37),
+		upKey = keyboard(38),
+		rightKey = keyboard(39),
+		downKey = keyboard(40);
+
+    // store whether key is pressed
+	left = false,
+		up = false,
+		right = false,
+		down = false;
+
+	leftKey.press = function() {
+		left = true;
+	}
+	leftKey.release = function() {
+		left = false;
+	}
+	upKey.press = function() {
+		up = true;
+	}
+	upKey.release = function() {
+		up = false;
+	}
+	rightKey.press = function() {
+		right = true;
+	}
+	rightKey.release = function() {
+		right = false;
+	}
+	downKey.press = function() {
+		down = true;
+	}
+	downKey.release = function() {
+		down = false;
+	}
 
 	requestAnimationFrame(animate);
 
