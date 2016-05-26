@@ -92,6 +92,9 @@ window.onload = function() {
 	rocket.anchor.x = .5
 	rocket.anchor.y = .5;
 
+	rocket.position.x = 100;
+	rocket.position.y = 100;
+
 	rocket.scale.x = 0.5;
 	rocket.scale.y = 0.5;
 
