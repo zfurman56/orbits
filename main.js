@@ -56,6 +56,10 @@ function gravity(point, mass) {
     // gravitational acceleration equation g = Gm/r^2
 	var accel = (G * mass) / Math.pow(distance, 2);
 
+	if (dx < 0) {
+		accel = -accel;
+	}
+
 	rocket.velocity.y += accel * (Math.sin(angle));
 	rocket.velocity.x += accel * (Math.cos(angle));
 
