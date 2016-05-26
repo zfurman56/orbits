@@ -38,14 +38,17 @@ function keyboard(keyCode) {
 
 }
 
+function applyAcceleration(accel) {
+	rocket.velocity.y += accel * (Math.sin(rocket.rotation-(Math.PI/2)));
+	rocket.velocity.x += accel * (Math.cos(rocket.rotation-(Math.PI/2)));
+}
+
 function animate() {
 	if (up) {
-		rocket.velocity.y += acceleration * (Math.sin(rocket.rotation-(Math.PI/2)));
-		rocket.velocity.x += acceleration * (Math.cos(rocket.rotation-(Math.PI/2)));
+		applyAcceleration(acceleration);
 	}
 	if (down) {
-		rocket.velocity.y += acceleration * (Math.sin(rocket.rotation-(Math.PI/2)));
-		rocket.velocity.x += acceleration * (Math.cos(rocket.rotation-(Math.PI/2)));
+		applyAcceleration(-acceleration);
 	}
 	if (left) {
 		rocket.rotation -= 0.05;
