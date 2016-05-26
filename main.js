@@ -49,7 +49,7 @@ window.onload = function() {
 	document.getElementById('container').appendChild(renderer.view);
 	stage = new PIXI.Stage();
 
-	var graphics = new PIXI.Graphics();
+	var characterGenerator = new PIXI.Graphics();
 
 	// set a fill and line style
 	characterGenerator.beginFill(0xffffff);
