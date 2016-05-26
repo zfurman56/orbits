@@ -89,6 +89,9 @@ window.onload = function() {
 
 	rocket.velocity = new PIXI.Point(0, 0); // actually a vector
 
+	rocket.scale.x = 0.5;
+	rocket.scale.y = 0.5;
+
     // acceleration coefficient - controls rate of acceleration
 	acceleration = 1/5;
 
